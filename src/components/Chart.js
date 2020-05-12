@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
 import { VictoryChart, VictoryLine, VictoryTheme, VictoryAxis, VictoryScatter, VictoryTooltip, VictoryLabel, VictoryVoronoiContainer} from "victory";
+=======
+import { VictoryChart, VictoryLine, VictoryTheme, VictoryAxis, VictoryScatter, VictoryLabel, VictoryVoronoiContainer, VictoryTooltip} from "victory";
+>>>>>>> c3a9e18bd8ef9b34b88ba4eba741e66a619ee854
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import { Grid, Typography, Avatar } from '@material-ui/core';
 
