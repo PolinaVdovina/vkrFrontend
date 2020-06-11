@@ -272,13 +272,20 @@ class Cabinet extends React.Component {
                         <Grid item>
                             <Grid container justify="center">
                                 <Grid item style={{'margin': '12px'}}>
-                                    <Button variant="contained" color="primary" onClick={()=> this.saveHandler()}>Сохранить</Button> 
+                                    <Button 
+                                        variant="contained" 
+                                        color="primary" 
+                                        onClick={()=> this.saveHandler()}
+                                        style={{'color': '#FFFFFF'}}
+                                    >
+                                        Сохранить
+                                    </Button> 
                                     {
                                         (this.props.role == 'engineer') &&
                                         <Button 
                                             variant="contained" 
                                             color="primary" 
-                                            style={{'marginLeft': '10px'}}
+                                            style={{'marginLeft': '10px', 'color': '#FFFFFF'}}
                                             component={NavLink}
                                             to={list.test.path}
                                         >

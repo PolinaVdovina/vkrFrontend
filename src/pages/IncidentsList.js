@@ -229,7 +229,7 @@ class IncidentsList extends React.Component {
         return(<>
             {!this.props.loggedIn  && <Redirect to={list.authError.path}/>}
             {(this.props.role == 'engineer' && (this.state.isTesting != true || this.state.rating <= 2.8) && this.state.isDonload) && <Redirect to={list.rightsError.path}/>}
-            {(this.props.loggedIn && this.state.isDonload) &&  <>
+            {(this.props.loggedIn) &&  <>
                 <Dialog open={this.state.isOpen} onClose={() => this.setState({'isOpen': false})}>
                     <DialogTitle>Новая заявка</DialogTitle>
                     <DialogContent>
