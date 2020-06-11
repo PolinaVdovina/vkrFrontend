@@ -1,42 +1,34 @@
 import React from 'react';
-import Houses from "./TableCards/Houses";
-import House from "./TableCards/House";
-import Tube from "./TableCards/Tube";
 import AuthWindow from "./AuthWindow";
 import RegWindow from "./RegWindow";
-import RegisterError from "./Home";
-import RolesError from "../components/RolesError";
 import AuthError from "../components/AuthError";
 import { Route } from "react-router";
+import Analytics from "./Analytics"
+import Cabinet from "./Cabinet"
+import IncidentsList from "./IncidentsList"
+import Test from "./Test"
+import WorkersList from "./WorkersList"
 import Home from "./Home"
-import HousesPivot from './TableCards/HousesPivot';
-import Pivot from './TableCards/Pivot';
+import ErrorRights from "./ErrorRights"
+
 
 export const list = {
-    housesPivot: {
-        path: '/housespivot/',
-        shortPath: '/housespivot/',
-        component: HousesPivot
+    homePage: {
+        title: 'Домашняя страница',
+        path: '/home',
+        component: Home,
     },
-    pivot: {
-        path: '/pivot/:id',
-        shortPath: '/pivot/',
-        component: Pivot
+    authError: {
+        title: 'Ошибка регистрации',
+        path: '/errorlogin',
+        shortPath: '/errorlogin',
+        component: AuthError,
     },
-    houses: {
-        path: '/houses',
-        shortPath: '/houses/',
-        component: Houses
-    },
-    house: {
-        path: '/house/:id',
-        shortPath: '/house/',
-        component: House
-    },
-    tube: {
-        path: '/tube/:id',
-        shortPath: '/tube/',
-        component: Tube
+    rightsError: {
+        title: 'Недостаточно прав',
+        path: '/errorrights',
+        shortPath: '/errorrights',
+        component: ErrorRights,
     },
     auth: {
         title: 'Авторизация',
@@ -49,22 +41,32 @@ export const list = {
         path: '/register',
         component: RegWindow,
     },
-    authError: {
-        title: 'Ошибка регистрации',
-        path: '/errorlogin',
-        shortPath: '/errorlogin',
-        component: AuthError,
+    cabinet: {
+        title: 'Личный кабинет',
+        path: '/cabinet',
+        component: Cabinet
     },
-    rolesError: {
-        title: 'Ошибка регистрации',
-        path: '/errorroles',
-        component: RolesError,
+    incidents: {
+        title: 'Список инцидентов',
+        path: '/incidents_list',
+        component: IncidentsList
     },
-    homePage: {
-        title: 'Домашняя страница',
-        path: '/home',
-        component: Home,
+    test: {
+        title: 'Квалификационный тест',
+        path: '/test',
+        component: Test
+    },
+    analytics: {
+        title: 'Аналитика',
+        path: '/analytics',
+        component: Analytics
+    },
+    workersList: {
+        title: 'Список работников',
+        path: '/workers_list',
+        component: WorkersList
     }
+
 };
 
 export const getTitleFromPath = (path) => {

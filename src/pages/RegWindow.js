@@ -15,7 +15,8 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { connect } from "react-redux";
 import { list } from "./pages";
 import { Redirect } from "react-router";
-import { Backdrop, CircularProgress } from '@material-ui/core';
+import { Backdrop, CircularProgress, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import SelectInput from '@material-ui/core/Select/SelectInput';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,18 +31,14 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: "#e74c3c",
+      backgroundColor: theme.palette.action,
     },
     form: {
       width: '100%', 
       marginTop: theme.spacing(1),
     },
     submit: {
-      margin: theme.spacing(3, 0, 2),
-      background: "#e74c3c",
-      '&:hover': {
-        backgroundColor: '#f38b14',
-      },   
+      margin: theme.spacing(3, 0, 2),   
     },
   }));
 
@@ -61,28 +58,27 @@ function RegWindow(props) {
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorLogin, setErrorLogin] = useState('');
-  const [userRolesChangeUsers, setUserRolesChangeUsers] = useState(false);
-  const [userRolesChangeRecords, setUserRolesChangeRecords] = useState(false);
-  const [donload, setDonload] = useState(true);
-  const [isAdmin, setAdmin] = useState(false);
+  const [userRole, setUserRole] = useState('');
+  const [donload, setDonload] = useState(false);
 
-  React.useEffect(()=>{
+
+  /*React.useEffect(()=>{
     try{
       let roles = localStorage.getItem('user_roles');
       if (roles.includes('SuperUser') || roles.includes('ChangeUser')) setAdmin(true);
     }
     catch{}
     setDonload(false);
-  })
+  })*/
 
   function validate() {
 
     setErrorPassword('');
     setErrorLogin('');
 
-    let roles = [];
+    /*let roles = [];
     if (userRolesChangeUsers) roles.push('ChangeUser');
-    if (userRolesChangeRecords) roles.push('ChangeRecord');
+    if (userRolesChangeRecords) roles.push('ChangeRecord');*/
 
     const postSend = {
         method: 'POST',
@@ -94,7 +90,7 @@ function RegWindow(props) {
         body: JSON.stringify({
           login,
           password,
-          roles,
+          role: userRole,
         })
     };
 
@@ -128,7 +124,7 @@ function RegWindow(props) {
 
       return(
         <>
-          { (props.loggedIn && isAdmin) &&
+          {/* (props.loggedIn && isAdmin) &&*/
           <Grid container component="main" className={classes.root} justify='center' alignItems='center'>
           <CssBaseline />
           <Grid item  component={Paper} elevation={6} square>
@@ -168,28 +164,32 @@ function RegWindow(props) {
                   autoComplete="current-password"
                   onChange={(event) => {setPassword(event.target.value)}}
                   />
-                  <Typography variant="h6">Права пользователя:</Typography>
-
+                  <Typography variant="h6">Выберите роль в программе:</Typography>
+                  
                   <Grid container>
                       <Grid item md={12}>
-                          <FormControlLabel
-                              control={<Checkbox checked={userRolesChangeUsers} onChange={() => setUserRolesChangeUsers(!userRolesChangeUsers)}/>}
-                              label="Работа с данными пользователей"
-                          />
-                      </Grid>
-                      <Grid item md={12}>
-                          <FormControlLabel
-                              control={<Checkbox checked={userRolesChangeRecords} onChange={() => setUserRolesChangeRecords(!userRolesChangeRecords)}/>}
-                              label="Работа с сохраненными записями"
-                          />
+                          <FormControl className={classes.formControl} fullWidth>
+                            <InputLabel id="demo-simple-select-label">Роль</InputLabel> 
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={userRole}
+                              onChange={(event)=>setUserRole(event.target.value)}
+                            >
+                              <MenuItem value="user">Пользователь</MenuItem>
+                              <MenuItem value="dispatcher">Диспетчер</MenuItem>
+                              <MenuItem value="engineer">Инженер поддержки</MenuItem>
+                              <MenuItem value="supervisor">Руководитель РГ</MenuItem>
+                            </Select>
+                          </FormControl>
                       </Grid>
                   </Grid>
                   <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={validate}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={validate}
                   >
                   Сохранить
                   </Button>
@@ -199,8 +199,8 @@ function RegWindow(props) {
           </Grid>
           </Grid>
         }
-        {!props.loggedIn && <Redirect to={list.authError.path}/>}
-        {(props.loggedIn && !isAdmin) && <Redirect to={list.rolesError.path}/>}
+        {/*!props.loggedIn && <Redirect to={list.authError.path}/>*/}
+        {/*(props.loggedIn && !isAdmin) && <Redirect to={list.rolesError.path}/>*/}
         </>
         )
     }

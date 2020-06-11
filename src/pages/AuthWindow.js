@@ -15,7 +15,8 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { store } from '../store';
 import { login } from '../actions/AuthActions';
 import { connect } from 'react-redux';
-import {Link as RouteLink, Redirect, withRouter} from 'react-router-dom'
+import {Link as RouteLink, Redirect, withRouter, NavLink} from 'react-router-dom'
+import { Backdrop, CircularProgress, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import { list } from "./pages";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,18 +31,14 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#e74c3c",
+    backgroundColor: theme.palette.action,
   },
   form: {
     width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-    background: "#e74c3c",
-    '&:hover': {
-      backgroundColor: '#f38b14',
-    },   
+    margin: theme.spacing(3, 0, 2),   
   },
 }));
 
@@ -62,7 +59,7 @@ function AuthWindow(props) {
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorLogin, setErrorLogin] = useState('');
-
+  const [userRole, setUserRole] = useState('');
 
 
   function validate() {
@@ -81,7 +78,7 @@ function AuthWindow(props) {
           password,
         })
     };
-        
+
     fetch('/api/auth/login', (postSend)).then((response=>response.json())).then(response=> { 
       switch(response.msg) {
             case 'WRONG_LOGIN':
@@ -91,11 +88,15 @@ function AuthWindow(props) {
                 password == '' ? setErrorPassword('Заполните пароль') : setErrorPassword('Неверный пароль');
                 break
             case 'OK':
-                localStorage.setItem('access_token',response.access_token);
-                localStorage.setItem('user_login', userLogin);
-                localStorage.setItem('user_id',response.user_id);     
-                localStorage.setItem('user_roles',response.roles);                     
-                store.dispatch(login(userLogin, response.access_token, response.user_id, response.roles));
+                if (userRole === response.role) {
+                    localStorage.setItem('access_token',response.access_token);
+                    //localStorage.setItem('user_login', userLogin);
+                    localStorage.setItem('user_id',response.user_id);     
+                    localStorage.setItem('user_role',response.role);                     
+                    store.dispatch(login(response.login, response.access_token, response.user_id, response.role));
+                    
+                }
+                else alert('Выбранная роль не соответствует существующей учетной записи')
                 break
         }
     });
@@ -149,6 +150,24 @@ function AuthWindow(props) {
               autoComplete="current-password"
               onChange={(event) => {setPassword(event.target.value)}}
             />
+            <Grid container>
+                      <Grid item md={12}>
+                          <FormControl className={classes.formControl} fullWidth>
+                            <InputLabel id="demo-simple-select-label">Роль</InputLabel> 
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={userRole}
+                              onChange={(event)=>setUserRole(event.target.value)}
+                            >
+                              <MenuItem value="user">Пользователь</MenuItem>
+                              <MenuItem value="dispatcher">Диспетчер</MenuItem>
+                              <MenuItem value="engineer">Инженер поддержки</MenuItem>
+                              <MenuItem value="supervisor">Руководитель РГ</MenuItem>
+                            </Select>
+                          </FormControl>
+                      </Grid>
+                  </Grid>
             <Button
               fullWidth
               variant="contained"
@@ -159,6 +178,7 @@ function AuthWindow(props) {
               Войти
             </Button>
           </form>
+          <NavLink to={list.register.path}>Нет аккаунта? Зарегистрироваться</NavLink>
         </div>
       </Grid>
     </Grid>

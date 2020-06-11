@@ -11,9 +11,15 @@ export default createMuiTheme({
 
   
   palette: {
-    primary: red,
-    secondary: {
-      main: red[500],
+    primary: {
+      light: '#C8E6C9',
+      dark: '#388E3C',
+      main: '#4CAF50'
     },
+    text: {
+      primary: '#212121',
+      secondary: '#757575'
+    },
+    divider: '#BDBDBD',
   },
 });

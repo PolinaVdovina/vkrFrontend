@@ -5,10 +5,11 @@ const initialState = {
     login: null,
     token: null,
     user_id: null,
-    roles: null,
+    role: null,
   };
 
   export default function auth(state = initialState, action) {
+
     switch (action.type) {
         case types.LOG_IN:
         return {
@@ -16,7 +17,7 @@ const initialState = {
             login: action.login,
             token: action.token,
             user_id: action.id,
-            roles: action.roles,
+            role: action.role,
         }
         case types.LOG_OUT:
         return initialState;
