@@ -64,7 +64,7 @@ export default class NewRequest extends React.Component {
                             if (this.state.id)                            
                                 this.props.onClickSave(this.state.id, this.state.data)
                             else
-                                this.props.onClickSave(this.state.data)
+                                this.props.onClickSave(null, this.state.data)
                         }}
                     >
                         Отправить

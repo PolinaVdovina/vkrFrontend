@@ -14,6 +14,7 @@ import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 import NewRequest from './NewRequest'
 import RequestComplete from './RequestComplete'
 import EngineerShare from './EngineerShare'
+import ExecList from './ExecList'
 import SearchIcon from '@material-ui/icons/Search';
 
 const settings = {
@@ -144,7 +145,11 @@ const settings = {
             },
             'extra_description': {
                 'label':'Дополнительная информация'
-            }
+            },
+            'work_group_list': {
+                'label': 'Выбор рабочей группы',
+                'component': ExecList
+            } 
         },
         'appointed': {
             'date_reg': {
@@ -204,6 +209,54 @@ const settings = {
             },
             'rating_user': {
                 'label': 'Рейтинг взаимодействия',
+                'component': RatingComp
+            }
+        }
+    },
+    'supervisor': {
+        'url': '/api/chief_table',
+        'new': {
+            'date_reg': {
+                'label':'Дата регистрации'
+            },
+            'description': {
+                'label':'Описание'
+            },
+            'priority': {
+                'label': 'Приоритет'
+            },
+            'exec_list': {
+                'label': 'Выбор исполнителя',
+                'component': ExecList
+            }                                  
+        },
+        'in_process': {
+            'description': {
+                'label':'Описание'
+            },
+            'executor': {
+                'label':'Исполнитель'
+            },
+            'date_deadline': {
+                'label': 'Крайний срок'
+            }
+            
+        },
+        'complete': {
+            'description': {
+                'label':'Описание'
+            },
+            'date_end': {
+                'label':'Дата завершения'
+            },
+            'executor': {
+                'label':'Исполнитель'
+            },
+            'solution': {
+                'label':'Решение'
+            },
+            'rating_user': {
+                'label': 'Оценка работы',
                 'component': RatingComp
             }
         }
@@ -492,6 +545,8 @@ export default class TablePanel extends React.Component {
                                                     index={index}
                                                     key={key}
                                                     id={el.id}
+                                                    user_id={this.props.user_id}
+                                                    role={this.props.role}
                                                 />
                                             </TableCell> :
                                             <TableCell>{el[key] ? el[key] : ''}</TableCell>                                                                             

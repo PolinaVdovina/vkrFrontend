@@ -190,6 +190,7 @@ function RegWindow(props) {
                     color="primary"
                     className={classes.submit}
                     onClick={validate}
+                    style={{'color': '#FFFFFF'}}
                   >
                   Сохранить
                   </Button>

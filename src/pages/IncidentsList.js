@@ -71,6 +71,20 @@ const settings = {
             'type': 'arbitr',
             'label': 'Арбитраж'
         }
+    ],
+    'supervisor': [
+        {
+            'type': 'new',
+            'label': 'Новые'
+        },
+        {
+            'type': 'in_process',
+            'label': 'В работе'
+        },
+        {
+            'type': 'complete',
+            'label': 'Завершено'
+        }
     ]
 }
 

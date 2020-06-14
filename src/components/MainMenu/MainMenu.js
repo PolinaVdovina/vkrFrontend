@@ -91,12 +91,12 @@ function MainMenu(props) {
 						<ListItemText primary='Личный кабинет'/>
 				</ListItem>
 				}
-				{ props.role != 'supervisor' &&
+				
 				<ListItem button component="a" href={list.incidents.path}>
 						<ListItemIcon><ViewListIcon/></ListItemIcon>
 						<ListItemText primary='Список инцидентов'/>
 				</ListItem>
-				}
+				
 				{ (props.role == 'supervisor' || props.role == 'dispatcher') &&
 				<ListItem button component="a" href={list.analytics.path}>
 						<ListItemIcon><PieChartIcon/></ListItemIcon>

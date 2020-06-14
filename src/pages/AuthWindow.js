@@ -174,6 +174,7 @@ function AuthWindow(props) {
               color="primary"
               className={classes.submit}
               onClick={validate}
+              style={{'color': '#FFFFFF'}}
             >
               Войти
             </Button>
